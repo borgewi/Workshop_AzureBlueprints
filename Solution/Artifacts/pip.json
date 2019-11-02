@@ -1,0 +1,41 @@
+{
+    "kind": "template",
+    "properties": {
+        "template": {
+            "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+            "contentVersion": "1.0.0.0",
+            "parameters": {
+                "pipName": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                }
+            },
+            "resources": [
+            {
+                "type": "Microsoft.Network/publicIPAddresses",
+                "name": "[parameters('pipName')]",
+                "apiVersion": "2018-08-01",
+                "location": "[parameters('location')]",
+                "properties": {
+                    "ipAddress": "13.95.9.2",
+                    "publicIPAddressVersion": "IPv4",
+                    "publicIPAllocationMethod": "Dynamic",
+                    "idleTimeoutInMinutes": 4
+                }
+            }        
+        ]
+        },
+        "resourceGroup": "BW-Blueprint-Rg",
+        "parameters": {            
+            "pipName": {
+                "value": "[parameters('SLV_SAFEST_pipName')]"
+            },
+            "location": {
+                "value": "[parameters('SLV_SAFEST_location')]"
+            }
+        }
+    },
+    "type": "Microsoft.Blueprint/blueprints/artifacts"
+}

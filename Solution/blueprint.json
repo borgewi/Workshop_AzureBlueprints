@@ -1,0 +1,52 @@
+{
+    "properties": {
+        "description": "Blueprintdefinisjon for utviklingsmiljø",
+        "targetScope": "subscription",
+        "parameters": { 
+            "principalId": {
+                "type": "String",
+                "metadata": {
+                    "description": "Security principal, se https://docs.microsoft.com/en-us/azure/role-based-access-control/overview",
+                    "strongType": "PrincipalId"
+                }
+            },
+            "SLV_SAFEST_virtualMachineName": {
+                "type": "String"
+            },
+            "SLV_SAFEST_storageAccountName": {
+                "type": "String"
+            },
+            "SLV_SAFEST_networkInterfacesName": {
+                "type": "String"
+            },
+            "SLV_SAFEST_pipName": {
+                "type": "String"
+            },
+            "SLV_SAFEST_vnetName": {
+                "type": "String"
+            },
+            "SLV_SAFEST_devEnvNumber": {
+                "type": "String"
+            },
+            "SLV_SAFEST_adminUsername": {
+                "type": "String"
+            },
+            "SLV_SAFEST_adminPassword": {
+                "type": "securestring",
+                "metadata":{
+                    "description": "Password for the Virtual Machine"
+                }
+            },
+            "SLV_SAFEST_location": {
+                "defaultValue": "northeurope",
+                "type": "String"
+            }
+        },
+        "resourceGroups": {
+            "BW-Blueprint-Rg": {
+                "location": "[parameters('SLV_SAFEST_location')]"
+            }
+        }
+    },
+    "type": "Microsoft.Blueprint/blueprints" 
+}
