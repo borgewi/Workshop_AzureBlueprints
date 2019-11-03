@@ -27,13 +27,13 @@
             }        
         ]
         },
-        "resourceGroup": "BW-Blueprint-Rg",
+        "resourceGroup": "Blueprint-RG",
         "parameters": {            
             "pipName": {
-                "value": "[parameters('SLV_SAFEST_pipName')]"
+                "value": "[parameters('IN_pipName')]"
             },
             "location": {
-                "value": "[parameters('SLV_SAFEST_location')]"
+                "value": "[parameters('IN_location')]"
             }
         }
     },

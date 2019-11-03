@@ -5,9 +5,6 @@
             "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
             "contentVersion": "1.0.0.0",
             "parameters": {
-                "devEnvNumber": {
-                    "type": "string"
-                },
                 "vnetName": {
                     "type": "string"
                 },
@@ -17,7 +14,7 @@
             },
             "variables": {
                 "subnetName": "Subnet",
-                "subnetPrefix": "[concat('10.',parameters('devEnvNumber'),'.0.0/24')]",
+                "subnetPrefix": "10.0.0.0/24",
                 "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('subnetName'))]"
               },
             "resources": [
@@ -29,7 +26,7 @@
                 "properties": {
                     "addressSpace": {
                         "addressPrefixes": [
-                            "[concat('10.',parameters('devEnvNumber'),'.0.0/24')]"
+                            "10.0.0.0/24"
                         ]
                     },
                     "subnets": [
@@ -44,16 +41,13 @@
             }
         ]
         },
-        "resourceGroup": "BW-Blueprint-Rg",
+        "resourceGroup": "Blueprint-RG",
         "parameters": {
             "vnetName": {
-                "value": "[parameters('SLV_SAFEST_vnetName')]"
+                "value": "[parameters('IN_vnetName')]"
             },
             "location": {
-                "value": "[parameters('SLV_SAFEST_location')]"
-            }, 
-            "devEnvNumber":{ 
-                "value": "[parameters('SLV_SAFEST_devEnvNumber')]"
+                "value": "[parameters('IN_location')]"
             }
         }
     },

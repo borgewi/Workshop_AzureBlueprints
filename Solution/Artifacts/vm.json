@@ -5,9 +5,6 @@
             "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
             "contentVersion": "1.0.0.0",
             "parameters": {
-                "devEnvNumber": {
-                    "type": "string"
-                },
                 "storageAccountName": {
                     "type": "string"
                 },
@@ -23,11 +20,11 @@
                 "virtualMachineName": {
                     "type": "string"
                 },
-                "adminUsername": {
+                "vmUsername": {
                     "type": "string"
                 },
-                "adminPassword": {
-                    "type": "securestring"
+                "vmPassword": {
+                    "type": "string"
                 },
                 "location": {
                     "type": "string"
@@ -64,8 +61,8 @@
                     },
                     "osProfile": {
                         "computerName": "[parameters('virtualMachineName')]",
-                        "adminUsername": "[parameters('adminUsername')]",
-                        "adminPassword": "[parameters('adminPassword')]",
+                        "adminUsername": "[parameters('vmUsername')]",
+                        "adminPassword": "[parameters('vmPassword')]",
                         "windowsConfiguration": {
                             "provisionVMAgent": true,
                             "enableAutomaticUpdates": true
@@ -90,34 +87,31 @@
             }
         ]
         },
-        "resourceGroup": "BW-Blueprint-Rg",
+        "resourceGroup": "Blueprint-RG",
         "parameters": {
             "storageAccountName": {
-                "value": "[parameters('SLV_SAFEST_storageAccountName')]"
+                "value": "[parameters('IN_storageAccountName')]"
             },
             "pipName": {
-                "value": "[parameters('SLV_SAFEST_pipName')]"
+                "value": "[parameters('IN_pipName')]"
             },
             "vnetName": {
-                "value": "[parameters('SLV_SAFEST_vnetName')]"
+                "value": "[parameters('IN_vnetName')]"
             },
             "networkInterfacesName": {
-                "value": "[parameters('SLV_SAFEST_networkInterfacesName')]"
+                "value": "[parameters('IN_networkInterfaceName')]"
             },
             "virtualMachineName": {
-                "value": "[parameters('SLV_SAFEST_virtualMachineName')]"
+                "value": "[parameters('IN_virtualMachineName')]"
             },
-            "adminUsername":{
-                "value": "[parameters('SLV_SAFEST_adminUsername')]"
+            "vmUsername":{
+                "value": "[parameters('IN_vmUsername')]"
             },
-            "adminPassword":{
-                "value": "[parameters('SLV_SAFEST_adminPassword')]"
+            "vmPassword":{
+                "value": "[parameters('IN_vmPass')]"
             },
             "location": {
-                "value": "[parameters('SLV_SAFEST_location')]"
-            }, 
-            "devEnvNumber":{ 
-                "value": "[parameters('SLV_SAFEST_devEnvNumber')]"
+                "value": "[parameters('IN_location')]"
             }
         },
         "dependsOn": [

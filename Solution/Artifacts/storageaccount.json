@@ -45,13 +45,13 @@
             }
         ]
         },
-        "resourceGroup": "BW-Blueprint-Rg",
+        "resourceGroup": "Blueprint-RG",
         "parameters": {
             "storageAccountName": {
-                "value": "[parameters('SLV_SAFEST_storageAccountName')]"
+                "value": "[parameters('IN_storageAccountName')]"
             },
             "location": {
-                "value": "[parameters('SLV_SAFEST_location')]"
+                "value": "[parameters('IN_location')]"
             }
         }
     },

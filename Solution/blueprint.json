@@ -3,48 +3,45 @@
         "description": "Blueprintdefinisjon for utviklingsmiljø",
         "targetScope": "subscription",
         "parameters": { 
-            "principalId": {
+            "IN_principalId": {
                 "type": "String",
                 "metadata": {
                     "description": "Security principal, se https://docs.microsoft.com/en-us/azure/role-based-access-control/overview",
                     "strongType": "PrincipalId"
                 }
             },
-            "SLV_SAFEST_virtualMachineName": {
+            "IN_storageAccountName": {
                 "type": "String"
             },
-            "SLV_SAFEST_storageAccountName": {
+            "IN_virtualMachineName": {
                 "type": "String"
             },
-            "SLV_SAFEST_networkInterfacesName": {
+            "IN_networkInterfaceName": {
                 "type": "String"
             },
-            "SLV_SAFEST_pipName": {
+            "IN_pipName": {
                 "type": "String"
             },
-            "SLV_SAFEST_vnetName": {
+            "IN_vnetName": {
                 "type": "String"
             },
-            "SLV_SAFEST_devEnvNumber": {
+            "IN_vmUsername": {
                 "type": "String"
             },
-            "SLV_SAFEST_adminUsername": {
-                "type": "String"
-            },
-            "SLV_SAFEST_adminPassword": {
-                "type": "securestring",
+            "IN_vmPass": {
+                "type": "String",
                 "metadata":{
                     "description": "Password for the Virtual Machine"
                 }
             },
-            "SLV_SAFEST_location": {
+            "IN_location": {
                 "defaultValue": "northeurope",
                 "type": "String"
             }
         },
         "resourceGroups": {
-            "BW-Blueprint-Rg": {
-                "location": "[parameters('SLV_SAFEST_location')]"
+            "Blueprint-RG": {
+                "location": "[parameters('IN_location')]"
             }
         }
     },

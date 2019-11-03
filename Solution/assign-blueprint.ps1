@@ -1,73 +1,49 @@
 param(    
-    [Parameter(Mandatory=$true)]$managementGroupId,
-    [Parameter(Mandatory=$true)]$blueprintName,
-    [Parameter(Mandatory=$true)]$subscriptionId,
-    [Parameter(Mandatory=$true)]$applicationId,
-    [Parameter(Mandatory=$true)]$tenantId,
-    [Parameter(Mandatory=$true)]$servicePrincipalPass,    
-    [Parameter(Mandatory=$true)]$keyVaultId,
-    $secretName = "$($env:SECRETNAME)",
-    $username = "$($env:USERNAME)",
-    $principalId = "$($env:PRINCIPALID)",
-    $devEnvNumber = "$($env:DEVENVNUMBER)",
-    $resourceGroupName = "BW-Blueprint-Rg-" + $devEnvNumber,
-    $assignmentName = "SLV_SAFEST_BP_ASSIGNMENT_DEV_" + $devEnvNumber
+    $subscriptionId = "68561d79-60fb-4d83-9688-16314efefe17",
+    $servicePrincipalPass = "FOlm1A-c./0:1o3Cr7Vab]8AhozWQ8n]",
+    $servicePrincipalId = "db583b7d-abd6-4c0c-b929-f3754baf4b31",
+    $tenantId = "8b87af7d-8647-4dc7-8df4-5f69a2011bb5",
+    $resourceGroupName = "Blueprint-RG",
+    $blueprintName = "Blueprint_Workshop",
+    $assignmentName = "Assignment_Workshop"
 )
 
 try{
-    # Install Az Module        
-    if (-not (Get-Module -Name Az)) {
-        Write-Information "Module 'Az' is missing. Installing 'Az' ..."
-        Install-Module -Name Az -Repository PSGallery -AllowClobber -Force
-    }
-    
-    # Install Az.Blueprint Module        
-    if (-not (Get-Module -Name Az.Blueprint)) {
-        Write-Information "Module 'Az.Blueprint' is missing. Installing 'Az.Blueprint' ..."
-        Install-Module -Name Az.Blueprint -AllowClobber -Force
-    }
-
     # Authenticate to Azure
     Write-Host "Connect to azure with Service Principal"
     Clear-AzContext -Scope Process
     Clear-AzContext -Scope CurrentUser -Force -ErrorAction SilentlyContinue
     $pass = ConvertTo-SecureString $servicePrincipalPass -AsPlainText -Force
-    $Credential = New-Object -TypeName pscredential -ArgumentList $applicationId, $pass    
+    $Credential = New-Object -TypeName pscredential -ArgumentList $servicePrincipalId, $pass    
     Connect-AzAccount -ServicePrincipal -Tenant $tenantId -Subscription $subscriptionId -Credential $Credential -Environment AzureCloud
     Set-AzContext -SubscriptionId $subscriptionId -TenantId $tenantId
 
     Write-Host "Getting blueprint definition..."
-    $bpDefinition = Get-AzBlueprint -ManagementGroupId $managementGroupId -Name $blueprintName -LatestPublished
+    $bpDefinition = Get-AzBlueprint -SubscriptionId $subscriptionId -Name $blueprintName -LatestPublished
 
     Write-Host "Creating hash table for parameters..."
     $bpParameters = @{
-        SLV_SAFEST_adminUsername = $username
-        SLV_SAFEST_virtualMachineName = "SAFEST-VM-" + $devEnvNumber
-        SLV_SAFEST_networkInterfacesName = "SAFEST-NIC-" + $devEnvNumber
-        SLV_SAFEST_pipName = "SAFEST-PIP-" + $devEnvNumber
-        SLV_SAFEST_vnetName = "SLV-SAFEST-VNET-DEV-CLIENT-" + $devEnvNumber
-        principalId= $principalId
-        SLV_SAFEST_storageAccountName= "safestdevstorageacc" + $devEnvNumber
-        SLV_SAFEST_devEnvNumber = $devEnvNumber
-    }
-
-    # Secure parameters used to create os profile for virtual machine
-    $secureParams = @{SLV_SAFEST_adminPassword=
-        @{keyVaultId= $keyVaultId;
-        secretName= $secretName}
+        IN_vmUsername = "borgewi"
+        IN_vmPass = "Passord123" 
+        IN_virtualMachineName = "VM-BW"
+        IN_networkInterfaceName = "NIC-BW"
+        IN_pipName = "PIP-BW" 
+        IN_vnetName = "VNET-BW"
+        IN_principalId= "f69f67d3-a1f6-4f31-b4c2-e839594d9266" # Din object ID. Finner den under din bruker i Azure Active Directory 
+        IN_storageAccountName= "borgesstorageaccount" # Må være unikt
     }
 
     Write-Host "Creating hash table for ResourceGroupParameters..."
-    $bpRGParameters = @{"BW-Blueprint-Rg"=@{name=$resourceGroupName}}
+    $bpRGParameters = @{"Blueprint-RG"=@{name=$resourceGroupName}}
 
     $oldAssignment = Get-AzBlueprintAssignment -SubscriptionId $subscriptionId -Name $assignmentName -ErrorAction silentlycontinue
 
     if ($oldAssignment) {
         Write-Host "Updating existing assignment..."
-        Set-AzBlueprintAssignment -Name $assignmentName -Blueprint $bpDefinition -SubscriptionId $subscriptionId -Location 'northeurope' -Parameter $bpParameters -SecureStringParameter $secureParams -ResourceGroupParameter $bpRGParameters
+        Set-AzBlueprintAssignment -Name $assignmentName -Blueprint $bpDefinition -SubscriptionId $subscriptionId -Location 'northeurope' -Parameter $bpParameters -ResourceGroupParameter $bpRGParameters
     } else {
         Write-Host "Creating new assignment..."
-        New-AzBlueprintAssignment -Name $assignmentName -Blueprint $bpDefinition -SubscriptionId $subscriptionId -Location 'northeurope' -Parameter $bpParameters -SecureStringParameter $secureParams -ResourceGroupParameter $bpRGParameters
+        New-AzBlueprintAssignment -Name $assignmentName -Blueprint $bpDefinition -SubscriptionId $subscriptionId -Location 'northeurope' -Parameter $bpParameters -ResourceGroupParameter $bpRGParameters
     }
 
     # Check the status of the blueprint assignment

@@ -5,9 +5,6 @@
             "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
             "contentVersion": "1.0.0.0",
             "parameters": {
-                "devEnvNumber": {
-                    "type": "string"
-                },
                 "pipName": {
                     "type": "string"
                 },
@@ -23,7 +20,7 @@
             },
             "variables": {
                 "subnetName": "Subnet",
-                "subnetPrefix": "[concat('10.',parameters('devEnvNumber'),'.0.0/24')]",
+                "subnetPrefix": "10.0.0.0/24')]",
                 "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('subnetName'))]"
               },
             "resources": [
@@ -39,7 +36,7 @@
                             "etag": "W/\"47bc78c0-439c-413b-98e2-a9939bc5936f\"",
                             "properties": {
                                 "provisioningState": "Succeeded",
-                                "privateIPAddress": "[concat('10.',parameters('devEnvNumber'),'.0.4')]",
+                                "privateIPAddress": "10.0.0.4",
                                 "privateIPAllocationMethod": "Dynamic",
                                 "publicIPAddress": {
                                     "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('pipName'))]"
@@ -56,22 +53,19 @@
             }
         ]
         },
-        "resourceGroup": "BW-Blueprint-Rg",
+        "resourceGroup": "Blueprint-RG",
         "parameters": {
             "pipName": {
-                "value": "[parameters('SLV_SAFEST_pipName')]"
+                "value": "[parameters('IN_pipName')]"
             },
             "vnetName": {
-                "value": "[parameters('SLV_SAFEST_vnetName')]"
+                "value": "[parameters('IN_vnetName')]"
             },
             "networkInterfacesName": {
-                "value": "[parameters('SLV_SAFEST_networkInterfacesName')]"
+                "value": "[parameters('IN_networkInterfaceName')]"
             },
             "location": {
-                "value": "[parameters('SLV_SAFEST_location')]"
-            }, 
-            "devEnvNumber":{ 
-                "value": "[parameters('SLV_SAFEST_devEnvNumber')]"
+                "value": "[parameters('IN_location')]"
             }
         },
         "dependsOn": [
