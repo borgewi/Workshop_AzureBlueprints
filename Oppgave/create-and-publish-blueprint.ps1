@@ -6,7 +6,7 @@ param(
     $servicePrincipalPass = "",
     $servicePrincipalId = "",
     $tenantId = "",
-    $SourceDir = ""
+    $SourceDir = "C:\src\Workshop_AzureBlueprints\Oppgave"
 )                                                       
 #############################################################
 try{
