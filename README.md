@@ -15,6 +15,8 @@ Før du begynner må du:
 3. Gi din nye Service Principal owner-rettigheter på din subscription (Subscriptions --> Access Control --> Role Assignments) 
 
 ## Oppgave
+I denne workshopen skal du lage, publisere og assigne et blueprint ved hjelp av powershell. Blueprintet inneholder et Virtual Network, et subnet og en Network Security Group.
+
 Naviger til "Oppgave" og fullfør avsnittene med "TODOs" i scriptene. 
 
 * Begynn med scriptet "createAndPublishBlueprint.ps1". Det importerer blueprintdefinisjonen og artifaktene til Azure og "oppretter" blueprintet.
