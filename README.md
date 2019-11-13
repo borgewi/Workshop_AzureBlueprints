@@ -7,7 +7,7 @@ Før du begynner må du:
     2. Install-Module -Name Az.Blueprint -AllowClobber -Force
 2. Opprett en Service Principal
   i. Gi den owner-rettigheter på din subscription (Subscriptions --> Access Control --> Role Assignments)
- 
+
 ## Oppgave
 Naviger til "Oppgave" og fullfør avsnittene med "TODOs" i scriptene. 
 
@@ -15,3 +15,9 @@ Naviger til "Oppgave" og fullfør avsnittene med "TODOs" i scriptene.
 * Gå deretter løs på scriptet "assignBlueprint.ps1". Dette oppretter ressursene i Azure i henhold til blueprintet. 
 
 Dersom du står fast kan du se hvordan det er satt opp i "Solution". 
+
+Guide på hvordan finne diverse parametre:
+
+
+* tenant id: Når du er i Azureportalen, naviger til Azure Directory -> Properties og benytt "Directory ID".
+* subscription id: Når du er i Azureportalen, naviger til Subscriptions og les av subscription ID på din subscription. Husk at Service Principal må ha owner-rettigheter på denne. 
