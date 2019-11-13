@@ -27,14 +27,8 @@ try{
     # TODO Fyll inn blueprint-parametre.
     Write-Host "Creating hash table for parameters..."
     $bpParameters = @{
-        BP_vmUsername = ""                          # Ditt brukernavn på VM-et
-        BP_vmPass = ""                              # Lag et passord i henhold til kriteriene (står på github)
-        BP_virtualMachineName = "WORKSHOP-VM"       
-        BP_networkInterfaceName = "WORKSHOP-NIC"
-        BP_pipName = "WORKSHOP-PIP" 
         BP_vnetName = "WORKSHOP-VNET"
-        BP_principalId= ""                          # Din object ID. Finner den under din bruker i Azure Active Directory 
-        BP_storageAccountName= ""                   # Må være unikt
+        BP_nsgName = "WORKSHOP-NSG"
     }
     #######################################################################################################################
 

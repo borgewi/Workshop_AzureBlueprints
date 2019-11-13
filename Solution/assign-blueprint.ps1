@@ -1,13 +1,12 @@
 param(    
     $subscriptionId = "68561d79-60fb-4d83-9688-16314efefe17",
-    $servicePrincipalPass = "",
     $servicePrincipalId = "db583b7d-abd6-4c0c-b929-f3754baf4b31",
     $tenantId = "8b87af7d-8647-4dc7-8df4-5f69a2011bb5",
     $resourceGroupName = "Blueprint-RG",
     $blueprintName = "Blueprint_Workshop",
     $assignmentName = "Assignment_Workshop"
 )
-
+$servicePrincipalPass = Read-Host -Prompt "Provide service principal secret: "
 try{
     # Authenticate to Azure
     Write-Host "Connect to azure with Service Principal"
@@ -23,14 +22,8 @@ try{
 
     Write-Host "Creating hash table for parameters..."
     $bpParameters = @{
-        BP_vmUsername = "borgewi"
-        BP_vmPass = "Passord123" 
-        BP_virtualMachineName = "WORKSHOP-VM"       
-        BP_networkInterfaceName = "WORKSHOP-NIC"
-        BP_pipName = "WORKSHOP-PIP" 
         BP_vnetName = "WORKSHOP-VNET"
-        BP_principalId= "f69f67d3-a1f6-4f31-b4c2-e839594d9266" # Din object ID. Finner den under din bruker i Azure Active Directory 
-        BP_storageAccountName= "borgesstorageaccount" # Må være unikt
+        BP_nsgName = "WORKSHOP-NSG"
     }
 
     Write-Host "Creating hash table for ResourceGroupParameters..."

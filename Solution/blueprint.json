@@ -3,36 +3,11 @@
         "description": "Blueprintdefinisjon for utviklingsmiljø",
         "targetScope": "subscription",
         "parameters": { 
-            "BP_principalId": {
-                "type": "String",
-                "metadata": {
-                    "description": "Security principal, se https://docs.microsoft.com/en-us/azure/role-based-access-control/overview",
-                    "strongType": "PrincipalId"
-                }
-            },
-            "BP_storageAccountName": {
-                "type": "String"
-            },
-            "BP_virtualMachineName": {
-                "type": "String"
-            },
-            "BP_networkInterfaceName": {
-                "type": "String"
-            },
-            "BP_pipName": {
+            "BP_nsgName": {
                 "type": "String"
             },
             "BP_vnetName": {
                 "type": "String"
-            },
-            "BP_vmUsername": {
-                "type": "String"
-            },
-            "BP_vmPass": {
-                "type": "String",
-                "metadata":{
-                    "description": "Password for the Virtual Machine"
-                }
             },
             "BP_location": {
                 "defaultValue": "northeurope",

@@ -8,35 +8,36 @@
                 "vnetName": {
                     "type": "string"
                 },
-                "location": {
+                "nsgName": {
                     "type": "string"
                 }
             },
-            "variables": {
-                "subnetName": "Subnet",
-                "subnetPrefix": "10.0.0.0/24",
-                "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), variables('subnetName'))]"
-              },
             "resources": [
             {
                 "type": "Microsoft.Network/virtualNetworks",
                 "name": "[parameters('vnetName')]",
-                "apiVersion": "2018-08-01",
-                "location": "[parameters('location')]",
+                "apiVersion": "2019-09-01",
+                "location": "[resourceGroup().location]",
                 "properties": {
                     "addressSpace": {
                         "addressPrefixes": [
-                            "10.0.0.0/24"
+                            "10.0.0.0/16"
                         ]
                     },
                     "subnets": [
                         {
-                          "name": "[variables('subnetName')]",
-                          "properties": {
-                            "addressPrefix": "[variables('subnetPrefix')]"
-                          }
+                            "name": "Subnet1",
+                            "properties": {
+                                "addressPrefix": "10.0.0.0/24",
+                                "networkSecurityGroup": {
+                                    "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/networkSecurityGroups/', parameters('nsgName'))]"
+                                },
+                                "delegations": [],
+                                "privateEndpointNetworkPolicies": "Enabled",
+                                "privateLinkServiceNetworkPolicies": "Enabled"
+                            }
                         }
-                      ]
+                    ]
                 }
             }
         ]
@@ -46,10 +47,13 @@
             "vnetName": {
                 "value": "[parameters('BP_vnetName')]"
             },
-            "location": {
-                "value": "[parameters('BP_location')]"
+            "nsgName": {
+                "value": "[parameters('BP_nsgName')]"
             }
-        }
+        },
+        "dependsOn": [
+            "nsg"
+        ]
     },
     "type": "Microsoft.Blueprint/blueprints/artifacts"
 }

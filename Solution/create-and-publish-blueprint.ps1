@@ -1,11 +1,11 @@
 param(
     $subscriptionId = "68561d79-60fb-4d83-9688-16314efefe17",
     $blueprintName = "Blueprint_Workshop",
-    $servicePrincipalPass = "FOlm1A-c./0:1o3Cr7Vab]8AhozWQ8n]",
     $servicePrincipalId = "db583b7d-abd6-4c0c-b929-f3754baf4b31",
     $tenantId = "8b87af7d-8647-4dc7-8df4-5f69a2011bb5",
     $SourceDir = "C:\src\Workshop_AzureBlueprints\Solution"
 )
+$servicePrincipalPass = Read-Host -Prompt "Provide service principal secret: "
 
 try{
     # TODO Må laste inn az-moduler for de som ikke har de fra før

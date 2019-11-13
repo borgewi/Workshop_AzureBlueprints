@@ -1,0 +1,32 @@
+{
+    "kind": "template",
+    "properties": {
+        "template": {
+            "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+            "contentVersion": "1.0.0.0",
+            "parameters": {
+                "nsgName": {
+                    "type": "string"
+                }
+            },
+            "resources": [
+            {
+                "type": "Microsoft.Network/networkSecurityGroups",
+                "apiVersion": "2019-09-01",
+                "name": "[parameters('nsgName')]",
+                "location": "[resourceGroup().location]",
+                "properties": {
+                    "securityRules": []
+                }
+            }
+            ]
+        },
+        "resourceGroup": "Blueprint-RG",
+        "parameters": {
+            "nsgName": {
+                "value": "[parameters('BP_nsgName')]"
+            }
+        }
+    },
+    "type": "Microsoft.Blueprint/blueprints/artifacts"
+}
