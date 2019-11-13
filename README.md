@@ -6,7 +6,13 @@ Før du begynner må du:
     1. Install-Module -Name Az -Repository PSGallery -AllowClobber -Force
     2. Install-Module -Name Az.Blueprint -AllowClobber -Force
 2. Opprett en Service Principal
-  i. Gi den owner-rettigheter på din subscription (Subscriptions --> Access Control --> Role Assignments)
+    1. I Azureportalen, naviger til Active Directory --> App Registrations 
+    2. Klikk på "New registration" 
+    3. Gi den et navn og klikk "Register"
+    4. Gå inn i application du nettopp lagde og trykk "Certificates & secrets" 
+    5. Klikk "New client secret" og gi den et navn under "Description".
+    6. En ny secret dukker opp. Verdien under "Value" vil ikke vises igjen, så kopier og lagre denne et sted. Den skal brukes i scriptene i workshopen.
+3. Gi din nye Service Principal owner-rettigheter på din subscription (Subscriptions --> Access Control --> Role Assignments) 
 
 ## Oppgave
 Naviger til "Oppgave" og fullfør avsnittene med "TODOs" i scriptene. 
