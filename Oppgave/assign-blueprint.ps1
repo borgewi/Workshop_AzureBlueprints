@@ -1,5 +1,5 @@
 #############################################################
-# TODO Fyll inn parametre
+# TODO Fyll inn parametrene som mangler
 param(    
     $subscriptionId = "",
     $servicePrincipalPass = "",
@@ -23,14 +23,11 @@ try{
     Write-Host "Getting blueprint definition..."
     $bpDefinition = Get-AzBlueprint -SubscriptionId $subscriptionId -Name $blueprintName -LatestPublished
 
-    #######################################################################################################################
-    # TODO Fyll inn blueprint-parametre.
     Write-Host "Creating hash table for parameters..."
     $bpParameters = @{
         BP_vnetName = "WORKSHOP-VNET"
         BP_nsgName = "WORKSHOP-NSG"
     }
-    #######################################################################################################################
 
     Write-Host "Creating hash table for ResourceGroupParameters..."
     $bpRGParameters = @{"Blueprint-RG"=@{name=$resourceGroupName}}
@@ -40,14 +37,14 @@ try{
     if ($oldAssignment) {
         Write-Host "Updating existing assignment..."
         ##################################################################################
-        # TODO Oppdater eksisterende assignment ved bruk av "Set-AzBlueprintAssignment"
+        # TODO Oppdater eksisterende assignment
 
         ##################################################################################
     } else {
         Write-Host "Creating new assignment..."
 
         ##################################################################################
-        # TODO Lag ny assignment ved bruk av "New-AzBlueprintAssignment"
+        # TODO Lag ny assignment 
 
         ##################################################################################
     }
